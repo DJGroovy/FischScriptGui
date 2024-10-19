@@ -70,13 +70,12 @@ local function startButtonPositioning()
     local shakeui = playerGui:WaitForChild("shakeui", 5)
     local safezoneui = shakeui:WaitForChild("safezone", 5)
 
-    local button = safezoneui:FindFirstChild("button")
-
-    if button then
-        runService.Heartbeat:Connect(function()
+    runService.Heartbeat:Connect(function()
+        local button = safezoneui:FindFirstChild("button")
+        if button then
             moveButtonToCenter(button)
-        end)
-    end
+        end
+    end)
 end
 
 userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
