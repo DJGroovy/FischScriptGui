@@ -85,12 +85,6 @@ userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
     end
 end)
 
-userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
-    if input.KeyCode == Enum.KeyCode.F and not gameProcessedEvent then
-        startButtonPositioning()
-    end
-end)
-
 	end    
 })
 
