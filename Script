@@ -24,7 +24,7 @@ local PlayerSection = PlayerTab:AddSection({
 
 
 PlayerSection:AddButton({
-	Name = "Cast Auto (press b when fish caught on cast)",
+	Name = "Cast Auto (click when fish caught)",
 	Callback = function(Value)
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
