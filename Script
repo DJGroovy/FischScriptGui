@@ -24,9 +24,9 @@ local PlayerSection = PlayerTab:AddSection({
 
 
 PlayerSection:AddButton({
-	Name = "Cast Auto",
+	Name = "Cast Auto (press b when fish caught on cast)",
 	Callback = function(Value)
-        local player = game.Players.LocalPlayer
+local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
 local reel = playerGui:WaitForChild("reel")
@@ -35,6 +35,7 @@ local fish = bar:WaitForChild("fish")
 local playerbar = bar:WaitForChild("playerbar")
 
 local runService = game:GetService("RunService")
+local userInputService = game:GetService("UserInputService")
 
 local function updatePlayerBarPosition()
     runService.Heartbeat:Connect(function()
@@ -42,7 +43,12 @@ local function updatePlayerBarPosition()
         playerbar.Position = fishPosition
     end)
 end
-updatePlayerBarPosition()
+
+userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.B and not gameProcessedEvent then
+        updatePlayerBarPosition()
+    end
+end)
 	end    
 })
 
@@ -52,6 +58,7 @@ PlayerSection:AddButton({
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 local userInputService = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
 
 local function moveButtonToCenter(button)
     if button then
@@ -60,21 +67,23 @@ local function moveButtonToCenter(button)
 end
 
 local function startButtonPositioning()
-    while true do
-        local shakeui = playerGui:WaitForChild("shakeui", 5)
-        local safezoneui = shakeui:WaitForChild("safezone", 5)
-        
-        while true do
-            local button = safezoneui:FindFirstChild("button")
-            
-            if button then
-                moveButtonToCenter(button)
-            end
-            
-            wait(0.1)
-        end
+    local shakeui = playerGui:WaitForChild("shakeui", 5)
+    local safezoneui = shakeui:WaitForChild("safezone", 5)
+
+    local button = safezoneui:FindFirstChild("button")
+
+    if button then
+        runService.Heartbeat:Connect(function()
+            moveButtonToCenter(button)
+        end)
     end
 end
+
+userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.F and not gameProcessedEvent then
+        startButtonPositioning()
+    end
+end)
 
 userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
     if input.KeyCode == Enum.KeyCode.F and not gameProcessedEvent then
