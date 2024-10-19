@@ -72,6 +72,7 @@ local function startButtonPositioning()
 
     runService.Heartbeat:Connect(function()
         local button = safezoneui:FindFirstChild("button")
+        
         if button then
             moveButtonToCenter(button)
         end
@@ -83,7 +84,6 @@ userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
         startButtonPositioning()
     end
 end)
-
 	end    
 })
 
