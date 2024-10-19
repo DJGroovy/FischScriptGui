@@ -31,16 +31,19 @@ local playerGui = player:WaitForChild("PlayerGui")
 
 local reel = playerGui:WaitForChild("reel")
 local bar = reel:WaitForChild("bar")
-local fish = bar:WaitForChild("fish")
-local playerbar = bar:WaitForChild("playerbar")
-
-local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
 
 local function updatePlayerBarPosition()
+    local fish = bar:WaitForChild("fish", 5)
+
     runService.Heartbeat:Connect(function()
-        local fishPosition = fish.Position
-        playerbar.Position = fishPosition
+        if fish and fish:IsDescendantOf(bar) then
+            local fishPosition = fish.Position
+            playerbar.Position = fishPosition
+        else
+            fish = bar:WaitForChild("fish", 5)
+        end
     end)
 end
 
@@ -49,6 +52,7 @@ userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
         updatePlayerBarPosition()
     end
 end)
+
 	end    
 })
 
