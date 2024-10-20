@@ -70,8 +70,8 @@ local function moveButtonToCenter(button)
 end
 
 local function startButtonPositioning()
-    local shakeui = playerGui:WaitForChild("shakeui", 5)
-    local safezoneui = shakeui:WaitForChild("safezone", 5)
+    local shakeui = playerGui:WaitForChild("shakeui", 25)
+    local safezoneui = shakeui:WaitForChild("safezone", 25)
 
     runService.Heartbeat:Connect(function()
         local button = safezoneui:FindFirstChild("button")
